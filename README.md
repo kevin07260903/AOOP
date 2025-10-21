@@ -68,14 +68,8 @@ pacman_game/
 
 
 ##  範例畫面
+![](images/picture.png)
 
-執行後畫面將顯示：
-```
-[Ghost Source] Using 4 fixed BT ghosts from /path/to/pacman_game/ghost_bt.py
-```
-並出現 4 隻不同行為的鬼同場競技。
-
----
 
 
 
