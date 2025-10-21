@@ -291,20 +291,16 @@ class ClassicGameRules:
     def __init__(self, timeout=30):
         self.timeout = timeout
 
-    def newGame(self, layout, pacmanAgent, ghostAgents, display, quiet=False, catchExceptions=False):
-        # 不要再用 layout.getNumGhosts() 切片了；完全照呼叫方給的鬼清單
-        agents = [pacmanAgent] + list(ghostAgents)
+    def newGame( self, layout, pacmanAgent, ghostAgents, display, quiet = False, catchExceptions=False):
+        agents = [pacmanAgent] + ghostAgents[:layout.getNumGhosts()]
         initState = GameState()
-        # 這裡用「實際給進來的鬼隻數」初始化狀態
-        initState.initialize(layout, len(ghostAgents))
+        initState.initialize( layout, len(ghostAgents) )
         game = Game(agents, display, self, catchExceptions=catchExceptions)
         game.state = initState
         game.layout = layout
         self.initialState = initState.deepCopy()
         self.quiet = quiet
         return game
-
-
 
     def process(self, state, game):
         """
