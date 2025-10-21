@@ -1,117 +1,80 @@
-# oop-proj-bt-pacman
+本專案整合自 UC Berkeley Pacman 專案，修改後支援 **Behavior Tree (BT)** 結構的鬼 (`ghost_bt.py`)，
+並在執行時自動載入四隻不同行為的鬼：
+BTRandomGhost 
+BTDirectionalGhost 
+BTChasingGhost 
+BTImperfectGhost 
 
-This repo is used for OOP class. See the original developments further below.
+Pacman 則維持以鍵盤方向鍵 (或 WASD) 操作。
 
-We will use the docker setup in the oop-python-nycu repo.
+---
 
-## How to Run
+## 執行環境
 
+本專案設計於 Docker + ROS 環境下運行。請確認：
+你已有 `docker_run.sh`、`docker_join.sh`、`environment.sh`
+並已成功建置 ROS 容器與 Pacman 專案
+
+---
+
+## 執行方式
+
+以下為完整執行步驟：
+
+### Terminal 1：
+```bash
+source docker_run.sh
+source environment.sh
+roscore
 ```
+
+### Terminal 2：
+```bash
+source docker_join.sh
+source environment.sh
 cd pacman_game
-python3 pacman.py
-```
-    WEST_KEY  = 'a'
-    EAST_KEY  = 'd'
-    NORTH_KEY = 'w'
-    SOUTH_KEY = 's'
-    STOP_KEY = 'q'
-
-Run with debugger
-```
-python3 -m ipdb pacman.py
+python3 pacman.py -l originalClassic -p KeyboardAgent
 ```
 
 ---
 
-Installation in Windows
-------------
-1) Install Dependencies:
+## 遊戲說明
 
-Download and install [Cmake for Windows](https://cmake.org/download/) <br/>
-Download and install [QT5 for Windows](https://www.qt.io/download-qt-for-application-development) (the open source version is free)  <br/>
-Download and install [python3 for Windows](http://docs.python-guide.org/en/latest/starting/install3/win/)<br/>
-2) Download the repository:
+**操作方式**： 
+方向鍵 或 WASD 控制 Pacman 
+**遊戲內容**： 
+畫面中共有 4 隻鬼，分別由 `ghost_bt.py` 控制 
+鬼行為為行為樹（Behavior Tree）驅動，包含隨機、方向性、追逐、不完美等策略 
+**勝利條件**：吃光所有豆子 
+**失敗條件**：被鬼抓到 
 
-`git clone https://github.com/btirai/pacmanBT.git`
+---
 
-3) Build the Software:
+##  專案結構
 
-Run Cmake, set the project (pacmanBT) root folder and the desired build folder (your choice). Configure and generate project solution for your favorite IDE (e.g. Visual Studio 13). Then open the solution from your IDE and build the project.
-
-
-Run in Windows
-------------
-
-In a terminal, go to the build directory of the project and then run the following commands:
-
-`cd bt_editor`
-
-`./behavior_tree_editor.exe`
-
-Alternatively, run the executable behavior_tree_editor.exe from File Explorer
+```
+pacman_game/
+│
+├── pacman.py          # 主程式（整合四隻 BT 鬼）
+├── ghost_bt.py        # Behavior Tree 鬼行為實作
+├── layouts/           # 地圖檔案（originalClassic 推薦）
+├── game.py            # 遊戲核心邏輯
+├── graphicsDisplay.py # 圖形介面
+└── util.py, layout.py, textDisplay.py 等輔助模組
+```
 
 
 
-Installation in Unix
-------------
-1) Install Dependencies:
+##  範例畫面
 
-`sudo apt-get install build-essential libgl1-mesa-dev python3-tk qtdeclarative5-dev`
+執行後畫面將顯示：
+```
+[Ghost Source] Using 4 fixed BT ghosts from /path/to/pacman_game/ghost_bt.py
+```
+並出現 4 隻不同行為的鬼同場競技。
 
-2) Download the repository:
+---
 
-`git clone https://github.com/miccol/pacmanBT.git`
-
-3) Build the Software:
-
-Run in a terminal the following commands:
-
-`cd pacmanBT` <br/>
-`mkdir build` <br/>
-`cd build` <br/>
-`cmake ..` <br/>
-`make`
-
-Run in Unix
-------------
-
-Run in a terminal the following commands:
-
-`cd bt_editor`
-
-`./behavior_tree_editor`
-
-
-
-
-
-
-
-Verify your installation
-------------
--In the BT editor: File->Load  <br/>
--Browse in the folder pacmanBT (the one you retrieved in step 2)  <br/>
--Select the file pacmantree.xml  <br/>
--A BT should appear in the editor, as in the picture below: <br/>
-
-![alt tag](https://github.com/miccol/pacmanBT/blob/master/ScreenWindows.jpg)
-
-
-
-
-
--Press the Play <img src="https://github.com/miccol/pacmanBT/blob/master/bt_editor/qt_nodeditor/resources/play.png" width="15" height="15"> icon. <br/>
--Enjoy
-
-
-Create your Behavior Tree
-------------
-
-Right Click in the editor to add a node. 
-Press Play to run the BT
-Enjoy
-
-NOTE: A BT must have the root node. It cannot have loose nodes (non-connected nodes).
 
 
 
