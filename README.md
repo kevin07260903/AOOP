@@ -23,6 +23,7 @@ Pacman 則維持以鍵盤方向鍵 (或 WASD) 操作。
 
 ### Terminal 1：
 ```bash
+cd oop-proj-bt-pacman
 source docker_run.sh
 source environment.sh
 roscore
@@ -30,6 +31,7 @@ roscore
 
 ### Terminal 2：
 ```bash
+cd oop-proj-bt-pacman
 source docker_join.sh
 source environment.sh
 cd pacman_game
